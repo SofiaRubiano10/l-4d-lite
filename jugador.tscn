@@ -1,0 +1,240 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/linterna.png" id="lin"]
+[ext_resource type="Script" path="res://jugador.gd" id="s"]
+[ext_resource type="Texture2D" path="res://assets/piernas_hoja.png" id="t0"]
+[ext_resource type="Texture2D" path="res://assets/torso_hoja.png" id="t1"]
+[ext_resource type="AudioStream" path="res://assets/pasos.wav" id="a0"]
+[ext_resource type="AudioStream" path="res://assets/disparo.wav" id="a1"]
+[ext_resource type="AudioStream" path="res://assets/recarga.wav" id="a2"]
+[ext_resource type="AudioStream" path="res://assets/muerte.wav" id="a3"]
+
+[sub_resource type="AtlasTexture" id="A0_0"]
+atlas = ExtResource("t0")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="A0_1"]
+atlas = ExtResource("t0")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="A0_2"]
+atlas = ExtResource("t0")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="A0_3"]
+atlas = ExtResource("t0")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="A0_4"]
+atlas = ExtResource("t0")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_A0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("A0_0")
+}],
+"loop": false,
+"name": &"quieto",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("A0_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("A0_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("A0_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("A0_4")
+}],
+"loop": true,
+"name": &"caminar",
+"speed": 8.0
+}]
+
+[sub_resource type="AtlasTexture" id="A1_0"]
+atlas = ExtResource("t1")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="A1_1"]
+atlas = ExtResource("t1")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="A1_2"]
+atlas = ExtResource("t1")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="A1_3"]
+atlas = ExtResource("t1")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="A1_4"]
+atlas = ExtResource("t1")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="A1_5"]
+atlas = ExtResource("t1")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="A1_6"]
+atlas = ExtResource("t1")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="A1_7"]
+atlas = ExtResource("t1")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="A1_8"]
+atlas = ExtResource("t1")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="A1_9"]
+atlas = ExtResource("t1")
+region = Rect2(576, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="A1_10"]
+atlas = ExtResource("t1")
+region = Rect2(640, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="A1_11"]
+atlas = ExtResource("t1")
+region = Rect2(704, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="A1_12"]
+atlas = ExtResource("t1")
+region = Rect2(768, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="A1_13"]
+atlas = ExtResource("t1")
+region = Rect2(832, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="A1_14"]
+atlas = ExtResource("t1")
+region = Rect2(896, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="A1_15"]
+atlas = ExtResource("t1")
+region = Rect2(960, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="A1_16"]
+atlas = ExtResource("t1")
+region = Rect2(1024, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_A1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("A1_0")
+}],
+"loop": false,
+"name": &"normal",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("A1_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("A1_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("A1_0")
+}],
+"loop": false,
+"name": &"disparar",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("A1_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("A1_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("A1_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("A1_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("A1_7")
+}, {
+"duration": 1.0,
+"texture": SubResource("A1_8")
+}, {
+"duration": 1.0,
+"texture": SubResource("A1_9")
+}, {
+"duration": 1.0,
+"texture": SubResource("A1_10")
+}],
+"loop": false,
+"name": &"recargar",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("A1_11")
+}, {
+"duration": 1.0,
+"texture": SubResource("A1_12")
+}, {
+"duration": 1.0,
+"texture": SubResource("A1_13")
+}, {
+"duration": 1.0,
+"texture": SubResource("A1_14")
+}, {
+"duration": 1.0,
+"texture": SubResource("A1_15")
+}, {
+"duration": 1.0,
+"texture": SubResource("A1_16")
+}],
+"loop": false,
+"name": &"morir",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="Forma"]
+radius = 20
+
+
+[node name="Superviviente" type="CharacterBody2D" groups=["jugador"]]
+script = ExtResource("s")
+
+[node name="Piernas" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_A0")
+animation = &"quieto"
+
+[node name="Torso" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_A1")
+animation = &"normal"
+
+[node name="Pasos" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("a0")
+
+[node name="Disparo" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("a1")
+
+[node name="Recarga" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("a2")
+
+[node name="Muerte" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("a3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("Forma")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Linterna" type="Sprite2D" parent="Torso"]
+show_behind_parent = true
+position = Vector2(84, 0)
+texture = ExtResource("lin")
