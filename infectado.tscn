@@ -1,11 +1,13 @@
-[gd_scene format=3]
+[gd_scene load_steps=4 format=3]
 
+[ext_resource type="Script" path="res://infectado.gd" id="1_script"]
 [ext_resource type="Texture2D" path="res://assets/infectado.png" id="1"]
 
 [sub_resource type="CircleShape2D" id="Forma"]
 radius = 20
 
 [node name="Infectado" type="Area2D" groups=["enemigos"]]
+script = ExtResource("1_script")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1")
