@@ -39,6 +39,7 @@ func _ready():
 		
 	# Nivel 3: Conectar cada infectado del grupo "enemigos"
 	for enemigo in get_tree().get_nodes_in_group("enemigos"):
+		enemigo.objetivo = jugador
 		enemigo.toco_al_jugador.connect(_on_enemigo_toco)
 		enemigo.abatido.connect(_on_enemigo_abatido)
 		
@@ -73,23 +74,23 @@ func activar_poder():
 	# Nivel 3: Reinicia la alarma de 6 segundos desde cero aunque ya estuviera corriendo
 	timer_poder.start()
 	
-	# Extra 1: Cambiar el color de los infectados mientras dura el poder
+	# Extra 1: Cambiar el color y comportamiento de los infectados mientras dura el poder
 	for enemigo in get_tree().get_nodes_in_group("enemigos"):
-		enemigo.modulate = Color(0.3, 0.6, 1.0, 1.0)
+		enemigo.set_modo_poder(true)
 
 
 func _on_timer_poder_timeout():
 	modo_poder = false
 	print("poder: no")
 	
-	# Extra 1: Devolver a los infectados a su color original al terminar el poder
+	# Extra 1: Devolver a los infectados a su estado y color original al terminar el poder
 	for enemigo in get_tree().get_nodes_in_group("enemigos"):
-		enemigo.modulate = Color(1.0, 1.0, 1.0, 1.0)
+		enemigo.set_modo_poder(false)
 
 
 func _on_enemigo_toco(enemigo):
-	# 1. Si el superviviente está muriendo, o si el juego ya terminó, no hacer nada.
-	if jugador.muriendo or juego_terminado:
+	# 1. Si el superviviente está muriendo, el infectado está aturdido o el juego terminó, no hacer nada.
+	if jugador.muriendo or juego_terminado or enemigo.esta_aturdido():
 		return
 		
 	# 2. Con poder: el infectado vuelve a casa y suman 200.
