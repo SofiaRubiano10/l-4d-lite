@@ -29,7 +29,7 @@ const DATOS_ARMAS = {
 }
 
 @export var speed = 180.0   # px/s
-@export var escopeta_desbloqueada: bool = true
+@export var escopeta_desbloqueada: bool = false
 
 var arma_actual: TipoArma = TipoArma.RIFLE
 var municion = {
@@ -53,6 +53,11 @@ var tiempo_cadencia: float = 0.0
 func _ready():
 	inicio = position
 	sincronizar_municion()
+
+
+func establecer_inicio(nueva_pos: Vector2):
+	position = nueva_pos
+	inicio = nueva_pos
 
 
 func _unhandled_input(event: InputEvent):
@@ -175,11 +180,14 @@ func lanzar_proyectil_rayo(origen: Vector2, angulo: float, alcance: float, dano:
 	query.collide_with_bodies = true
 	query.collide_with_areas = true
 	
-	# Excluir al propio jugador y los bidones/adrenalinas para que las balas no choquen con ítems
+	# Excluir al propio jugador, los bidones/adrenalinas y armas en el suelo para que las balas no choquen con ítems
 	var excluidos: Array[RID] = [get_rid()]
 	for item in get_tree().get_nodes_in_group("bidones"):
 		if item is CollisionObject2D:
 			excluidos.append(item.get_rid())
+	for arma_suelo in get_tree().get_nodes_in_group("armas_mapa"):
+		if arma_suelo is CollisionObject2D:
+			excluidos.append(arma_suelo.get_rid())
 	query.exclude = excluidos
 	
 	var resultado = espacio.intersect_ray(query)

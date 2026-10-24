@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://escopeta_pickup.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/escopeta.png" id="1_tex"]
+
+[sub_resource type="CircleShape2D" id="Forma"]
+radius = 18.0
+
+[node name="EscopetaPickup" type="Area2D" groups=["armas_mapa"]]
+script = ExtResource("1_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_tex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("Forma")
