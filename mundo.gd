@@ -40,9 +40,13 @@ func _ready():
 	# Nivel 3: Conectar cada infectado del grupo "enemigos"
 	for enemigo in get_tree().get_nodes_in_group("enemigos"):
 		enemigo.toco_al_jugador.connect(_on_enemigo_toco)
+		enemigo.abatido.connect(_on_enemigo_abatido)
 		
 	# Nivel 3: Conectar la señal timeout del TimerPoder
 	timer_poder.timeout.connect(_on_timer_poder_timeout)
+	
+	# Conectar señal de munición del superviviente
+	jugador.municion_cambiada.connect(_on_municion_cambiada)
 	
 	actualizar_hud()
 
@@ -105,8 +109,20 @@ func _on_enemigo_toco(enemigo):
 			jugador.morir()
 
 
+func _on_enemigo_abatido(_enemigo):
+	if juego_terminado:
+		return
+	puntaje += 100
+	actualizar_hud()
+
+
+func _on_municion_cambiada(_balas_actuales, _cargador_max, _esta_recargando):
+	actualizar_hud()
+
+
 func actualizar_hud():
-	$HUD/Puntaje.text = "Puntaje: %d | Vidas: %d" % [puntaje, vidas]
+	var estado_armas = "RECARGANDO..." if jugador.recargando else "%d/%d" % [jugador.balas, jugador.CARGADOR]
+	$HUD/Puntaje.text = "Puntaje: %d | Vidas: %d | Balas: %s" % [puntaje, vidas, estado_armas]
 
 
 func construir():

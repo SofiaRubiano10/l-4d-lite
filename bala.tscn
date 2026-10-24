@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://bala.gd" id="1_bala"]
+
+[sub_resource type="CircleShape2D" id="FormaBala"]
+radius = 4.0
+
+[node name="Bala" type="Area2D" groups=["balas"]]
+script = ExtResource("1_bala")
+
+[node name="Traza" type="Polygon2D" parent="."]
+color = Color(1, 0.88, 0.32, 1)
+polygon = PackedVector2Array(-6, -2, 6, -2, 8, 0, 6, 2, -6, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("FormaBala")

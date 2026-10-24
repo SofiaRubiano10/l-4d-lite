@@ -1,6 +1,7 @@
 extends Area2D
 
 signal toco_al_jugador(infectado)
+signal abatido(infectado)
 
 enum Eje { HORIZONTAL, VERTICAL }
 
@@ -37,3 +38,8 @@ func _on_body_entered(body):
 
 func volver_a_casa():
 	position = inicio
+
+
+func recibir_disparo():
+	volver_a_casa()
+	abatido.emit(self)
