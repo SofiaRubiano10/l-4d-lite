@@ -238,6 +238,3 @@ shape = SubResource("Forma")
 show_behind_parent = true
 position = Vector2(84, 0)
 texture = ExtResource("lin")
-
-[node name="PuntoDisparo" type="Marker2D" parent="Torso"]
-position = Vector2(28, 9)
