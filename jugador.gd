@@ -1,9 +1,13 @@
 extends CharacterBody2D
-# Taller 3 resuelto, más morir() para el Taller 4.
+# Taller 3 resuelto, más morir() y sistema de disparo real para el Taller 4.
+
+signal municion_cambiada(balas_actuales, cargador_max, esta_recargando)
 
 const CARGADOR = 15   # balas por cargador
 
 @export var speed = 180.0   # px/s
+
+var bala_escena = preload("res://bala.tscn")
 
 var balas = CARGADOR
 var recargando = false
@@ -12,6 +16,7 @@ var muriendo = false
 
 @onready var piernas = $Piernas
 @onready var torso = $Torso
+@onready var punto_disparo = $Torso/PuntoDisparo
 @onready var pasos = $Pasos
 @onready var disparo = $Disparo
 @onready var sonido_recarga = $Recarga
@@ -20,6 +25,8 @@ var muriendo = false
 
 func _ready():
 	inicio = position
+	torso.animation_finished.connect(_on_torso_animation_finished)
+	municion_cambiada.emit(balas, CARGADOR, recargando)
 
 
 func _physics_process(_delta):
@@ -75,8 +82,22 @@ func disparar():
 		recargar()
 		return
 	balas -= 1
+	municion_cambiada.emit(balas, CARGADOR, recargando)
+	instanciar_bala()
 	torso.play("disparar")
 	disparo.play()   # cada disparo es un sonido nuevo: aquí sí se reinicia
+
+
+func instanciar_bala():
+	var bala = bala_escena.instantiate()
+	bala.global_position = punto_disparo.global_position
+	bala.global_rotation = torso.global_rotation
+	get_parent().add_child(bala)
+
+
+func _on_torso_animation_finished():
+	if torso.animation == &"disparar" and not recargando and not muriendo:
+		torso.play("normal")
 
 
 # Nivel 3
@@ -84,11 +105,15 @@ func recargar():
 	if recargando or balas == CARGADOR:
 		return
 	recargando = true
+	municion_cambiada.emit(balas, CARGADOR, recargando)
 	torso.play("recargar")
 	sonido_recarga.play()
 	await torso.animation_finished
+	if muriendo:
+		return
 	balas = CARGADOR
 	recargando = false
+	municion_cambiada.emit(balas, CARGADOR, recargando)
 	torso.play("normal")
 
 
@@ -102,5 +127,6 @@ func morir():
 	await torso.animation_finished
 	position = inicio
 	balas = CARGADOR
+	municion_cambiada.emit(balas, CARGADOR, recargando)
 	torso.play("normal")
 	muriendo = false
