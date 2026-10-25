@@ -71,8 +71,6 @@ func _unhandled_input(event: InputEvent):
 		elif event.keycode == KEY_Q and escopeta_desbloqueada:
 			var siguiente = TipoArma.ESCOPETA if arma_actual == TipoArma.RIFLE else TipoArma.RIFLE
 			cambiar_arma(siguiente)
-		elif event.keycode == KEY_F and torso.has_node("Linterna"):
-			$Torso/Linterna.visible = not $Torso/Linterna.visible
 
 
 func _physics_process(delta):

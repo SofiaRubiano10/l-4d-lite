@@ -84,13 +84,8 @@ func _actualizar_estado_ia(jugador: Node2D, delta: float):
 		estado_actual = Estado.PATRULLA
 		return
 		
-	# 2. Comprobar visión directa (si la linterna está apagada, el rango visual se reduce)
-	var linterna_encendida = true
-	if jugador.has_node("Torso/Linterna"):
-		linterna_encendida = jugador.get_node("Torso/Linterna").visible
-	var alcance_vista_actual = rango_vision if linterna_encendida else rango_vision * 0.58
-	
-	if dist_jugador <= alcance_vista_actual and _tiene_linea_vision(jugador.global_position):
+	# 2. Comprobar visión directa hacia el jugador
+	if dist_jugador <= rango_vision and _tiene_linea_vision(jugador.global_position):
 		ultima_pos_vista = jugador.global_position
 		tiempo_memoria = 2.8
 		estado_actual = Estado.PERSECUCION
