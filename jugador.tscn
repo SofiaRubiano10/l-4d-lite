@@ -233,6 +233,9 @@ stream = ExtResource("a3")
 shape = SubResource("Forma")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.9, 1.9)
+position_smoothing_enabled = true
+position_smoothing_speed = 9.0
 
 [node name="Linterna" type="Sprite2D" parent="Torso"]
 show_behind_parent = true

@@ -52,7 +52,39 @@ var tiempo_cadencia: float = 0.0
 
 func _ready():
 	inicio = position
+	_configurar_luces_vision()
 	sincronizar_municion()
+
+
+func _configurar_luces_vision():
+	# Atenuar el sprite estático de linterna para que predomine la luz dinámica con sombras
+	if torso.has_node("Linterna"):
+		$Torso/Linterna.modulate = Color(1.0, 1.0, 0.9, 0.12)
+		
+	# 1. Halo cercano alrededor del superviviente (visión periférica corta)
+	var luz_cercana = PointLight2D.new()
+	luz_cercana.name = "LuzCercana"
+	luz_cercana.texture = load("res://assets/luz_circulo.png")
+	luz_cercana.texture_scale = 0.85
+	luz_cercana.energy = 1.15
+	luz_cercana.color = Color(0.92, 0.95, 1.0, 1.0)
+	luz_cercana.shadow_enabled = true
+	luz_cercana.shadow_filter = PointLight2D.SHADOW_FILTER_PCF5
+	luz_cercana.shadow_filter_smooth = 1.5
+	add_child(luz_cercana)
+	
+	# 2. Cono direccional de la linterna acoplado al Torso
+	var luz_linterna = PointLight2D.new()
+	luz_linterna.name = "LuzLinterna"
+	luz_linterna.texture = load("res://assets/luz_cono.png")
+	luz_linterna.offset = Vector2(165.0, 0.0)
+	luz_linterna.texture_scale = 1.05
+	luz_linterna.energy = 1.55
+	luz_linterna.color = Color(1.0, 0.97, 0.86, 1.0)
+	luz_linterna.shadow_enabled = true
+	luz_linterna.shadow_filter = PointLight2D.SHADOW_FILTER_PCF5
+	luz_linterna.shadow_filter_smooth = 1.5
+	torso.add_child(luz_linterna)
 
 
 func establecer_inicio(nueva_pos: Vector2):

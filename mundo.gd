@@ -370,6 +370,12 @@ func actualizar_hud():
 
 
 func construir():
+	# Oscuridad ambiental para limitar la visión a la linterna y el halo cercano
+	var oscuridad = CanvasModulate.new()
+	oscuridad.name = "OscuridadAmbiental"
+	oscuridad.color = Color(0.035, 0.04, 0.055, 1.0)
+	add_child(oscuridad)
+	
 	construir_bloques(MAPA, Color(0.45, 0.47, 0.42, 1))
 	
 	var pos_jugador = Vector2(2.5, 18.5) * CELDA

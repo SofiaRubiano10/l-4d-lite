@@ -87,4 +87,18 @@ func crear_segmento_muro(centro: Vector2, tamano: Vector2, color: Color):
 	dibujo.position = -dibujo.size / 2.0
 	cuerpo.add_child(dibujo)
 	
+	# Oclusor de luz para proyectar sombras reales detrás de cada pared
+	var oclusor = LightOccluder2D.new()
+	var poligono = OccluderPolygon2D.new()
+	var mitad = (tamano * 0.5) - Vector2(2.0, 2.0)
+	poligono.polygon = PackedVector2Array([
+		Vector2(-mitad.x, -mitad.y),
+		Vector2(mitad.x, -mitad.y),
+		Vector2(mitad.x, mitad.y),
+		Vector2(-mitad.x, mitad.y)
+	])
+	poligono.cull_mode = OccluderPolygon2D.CULL_CLOCKWISE
+	oclusor.occluder = poligono
+	cuerpo.add_child(oclusor)
+	
 	add_child(cuerpo)
