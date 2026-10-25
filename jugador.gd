@@ -156,6 +156,11 @@ func disparar():
 	disparo.pitch_scale = 0.82 if arma_actual == TipoArma.ESCOPETA else 1.0
 	disparo.play()
 	
+	# Alertar por sonido a los infectados cercanos al disparar
+	for enemigo in get_tree().get_nodes_in_group("enemigos"):
+		if enemigo.has_method("escuchar_disparo"):
+			enemigo.escuchar_disparo(global_position)
+	
 	# Lanzar rayos por cada perdigón/bala del arma actual
 	var origen_arma = global_position + Vector2.RIGHT.rotated(torso.rotation) * 24.0
 	var perdigones: int = info["perdigones"]
