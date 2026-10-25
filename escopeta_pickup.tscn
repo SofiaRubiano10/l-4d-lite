@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://escopeta_pickup.gd" id="1_script"]
 [ext_resource type="Texture2D" path="res://assets/escopeta.png" id="1_tex"]
+[ext_resource type="Texture2D" path="res://assets/luz_circulo.png" id="2_luz"]
 
 [sub_resource type="CircleShape2D" id="Forma"]
 radius = 18.0
@@ -14,3 +15,9 @@ texture = ExtResource("1_tex")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("Forma")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(1, 0.85, 0.35, 1)
+energy = 0.7
+texture = ExtResource("2_luz")
+texture_scale = 0.42
